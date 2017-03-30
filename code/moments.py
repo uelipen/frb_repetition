@@ -52,6 +52,28 @@ def get_powspec(tmax=300./24.,nbins=300,samples=10000):
     return klen, power
 
 
-klenls, powerls = get_correlation_fct(tmax=300/24./10**i,nbins=2000000,samples=10)
+klenls, powerls = get_powspec(tmax=100000.,nbins=2000000,samples=1000)
 out = np.array([klenls.flatten(),powerls.flatten()])
 np.save('power_k0.34_theta5.7_logls.npy',out)
+
+klenss, powerss = get_powspec(tmax=10.,nbins=2000000,samples=1000)
+out = np.array([klenss.flatten(),powerss.flatten()])
+np.save('power_k0.34_theta5.7_logss.npy',out)
+
+ls = np.load('power_k0.34_theta5.7_logls.npy')
+ss = np.load('power_k0.34_theta5.7_logss.npy')
+kls = ls[0]
+kss = ss[0][ss[0] > kls.max()]
+powls = ls[1]
+powss = ss[1][ss[0] > kls.max()]
+nu = np.append(kls,kss)
+powspec = np.append(powls,powss)
+
+poissval = theta
+weibval = poissval*(sp.gamma(1. + 2./k)/sp.gamma(1. + 1./k)**2 - 1.)
+
+pl.loglog(nu,powspec)
+pl.loglog([nu[1],nu[-1]],[poissval,poissval])
+pl.loglog([nu[1],nu[-1]],[weibval,weibval])
+pl.ylim(poissval/2.,weibval*2.)
+pl.show()
