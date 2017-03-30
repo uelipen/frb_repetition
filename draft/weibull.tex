@@ -86,7 +86,7 @@ For this analysis, we use the bursts listed in Table~1 of \citet{spitler-2016} a
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{intervals.pdf}
-	\caption{\label{fig:intervals}Lengths of observational intervals (\emph{green lines}) with positions of bursts within them (\emph{orange dots}). Note that all intervals have been shifted to the same start time. \textbf{[TO DO: need to decrease the axis label size]}}
+	\caption{\label{fig:intervals}Lengths of observational intervals (\emph{green lines}) with positions of bursts within them (\emph{orange dots}). \new{The vertical ordering of the intervals is chronological with the most recent observation at the top.} All intervals have been shifted to the same start time.}
 \end{figure}
 
 \textbf{[TO DO: go through literature and extract more (newer) data]}
@@ -99,7 +99,7 @@ Consider first a single observation of a finite duration $\Delta$. The informati
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{singleinterval.pdf}
-	\caption{\label{fig:singleinterval}Illustration of the variables used to describe a single finite-duration observation (\emph{green line}). We assume that $N$ bursts (\emph{orange dots}) happen during the observation. \textbf{[TO DO: need to decrease the axis label size]}}
+	\caption{\label{fig:singleinterval}Illustration of the variables used to describe a single finite-duration observation (\emph{green line}). We assume that $N$ bursts (\emph{orange dots}) happen during the observation.}
 \end{figure}
 
 We calculate the likelihood for $N$ and $t_1,\dots,t_N$ by marginalizing over the time of the next burst, $t_{N+1}$,
@@ -207,7 +207,7 @@ We make use of the data shown in Fig.~\ref{fig:intervals} and insert them into E
 
 \begin{figure}
 	\includegraphics[width=1.0\columnwidth]{2dpost.pdf}
-	\caption{\label{fig:result}Posterior probability distribution for the two parameters of the Weibull distribution (\emph{green}). The contours correspond to the 68\,\%-, 95\,\%-, and 99\,\%-confidence regions. The \emph{blue} curve in the top panel depicts the slice through the posterior at $k=1$, i.e., the posterior for the rate $r$ when restricting the Weibull distribution to a Poissonian distribution. The \emph{orange} lines indicate the posterior mean parameters. \textbf{[TO DO: Need to increase the size of the axis labels]}}
+	\caption{\label{fig:result}Posterior probability distribution for the two parameters of the Weibull distribution (\emph{green}). The contours correspond to the 68\,\%-, 95\,\%-, and 99\,\%-confidence regions. The \emph{blue} curve in the top panel depicts the slice through the posterior at $k=1$, i.e., the posterior for the rate $r$ when restricting the Weibull distribution to a Poissonian distribution. The \emph{orange} lines indicate the posterior mean parameters.}
 \end{figure}
 
 
@@ -223,7 +223,19 @@ To illustrate the effect this has on the number of burst during an observation, 
 	\caption{\label{fig:n_singleint}Probability to see $N$ bursts during an observation for which the expected number of bursts is 10. The \emph{green} histogram shows the Weibull case with parameters fixed to the posterior mean values and the \emph{blue} histogram shows the Poissonian case with the same rate.}
 \end{figure}
 
-\textbf{[TO DO: Add a figure/discussion of repetition rates that one can rule out after not seeing anything for some time in the Poissonian and Weibull case. Perhaps discuss what this means for the repetition of the ``non-repeating'' FRBs and for the inferred number of distinct FRBs.]}
+\new{An important consequence is that the inference that can be done on the mean repetition rate from observing an FRB, or a random location in the sky, for some time $\Delta$ and not seeing any bursts is much weaker than in the Poissonian case. A possible line of reasoning is to equate the probability of seeing no bursts in such an observation with a probability threshold $\alpha$, to solve for the threshold rate $r_\alpha$, and to conclude that rates above this threshold value are disfavored by the observational evidence. For the Poissonian case, this leads to a threshold rate of
+\begin{equation}
+	r^{\mathrm{(Poiss)}}_\alpha = - \frac{\ln(\alpha)}{\Delta},
+\end{equation}
+whereas the Weibull result can be obtained by numerically solving Eq.~\eqref{eq:likelihood_N0} for $r$. Figure~\ref{fig:ruleout} shows the ratio of the threshold rate in the Weibull case, $r^{\mathrm{(Weib)}}$, and the threshold rate in the Poissonian case, as a function of the shape parameter $k$. For the posterior-mean value, we find a ratio of 13 for $\alpha = 5\,\%$, meaning that rates that are consistent with the data of such an observation can be 13 times as high when allowing for $k \neq 1$ than when assuming Poissonian statistics. Choosing a lower probability threshold $\alpha$ makes this ratio even larger.}
+
+\begin{figure}
+	\includegraphics[width=1.0\columnwidth]{rule_out_rate.pdf}
+	\caption{\label{fig:ruleout}\new{Ratio of the thresholds above which rates can be ruled out at the 95\,\% level for the Weibull case and the Poissonian case after conducting a continuous observation without detection. For $k = 1$ the ratio is 1 by definition. The vertical dashed line marks the posterior-mean value of $\left<k\right>_{(k|N,t)}=0.34$, for which we find a ratio of 13, indicated by the horizontal dashed line.}}
+\end{figure}
+
+\new{Thus, it is possible within the Weibull model that an FRB that has been observed not to repeat for some time does indeed repeat with a fairly high average rate, but with a value of $k$ that is significantly less than 1. This opens the door to the possibility that all observed FRBs are in fact the same class of objects, even though only one object has been observed to burst repeatedly.}
+
 
 \subsection{Clustering}
 \label{sec:clustering}
@@ -250,11 +262,11 @@ We can calculate a density of bursts by dividing by the bin width, $n(t) = N(t)/
 
 The fact that the bursts appear clustered should inform future observational campaigns that aim to detect more bursts. In the Poissonian case, the probability of detecting a burst depends only on the total duration of the observation. In the presence of clustering, however, an observational strategy that spreads the same observing time over a larger period by introducing gaps has a higher chance of detecting a burst.
 
-To illustrate this effect, we consider a simple example for possible observational strategies. Suppose a total of 10 observing hours is to be allocated. We then split this observation into ten one-hour observations with equally long gaps between them. Figure~\ref{fig:obs_strategy} shows the numerically calculated probability of detecting at least one burst in such an observation, as a function of the length of each observing gap. Evidently, spreading the observations out increases the odds of a successful detection. Here we have again fixed the parameters to the posterior-mean values.
+To illustrate this effect, we consider \new{again the example of an observation whose total duration is such that the expected number of bursts is 10. However, we now split this time into ten equally long observations with equally long gaps between them.} Figure~\ref{fig:obs_strategy} shows the numerically calculated probability of detecting at least one burst in such an observation, as a function of the length of each observing gap. Evidently, spreading the observations out increases the odds of a successful detection. Here we have again fixed the parameters to the posterior-mean values \new{and the Poissonian probability of detecting at least one burst is 99.995\,\%.}
 
 \begin{figure}
 	\includegraphics[width=1.0\columnwidth]{obs_strategy.pdf}
-	\caption{\label{fig:obs_strategy}Probability of detecting at least one burst as a function of observing strategy. The assumed campaign consists of ten one-hour observations, interrupted by nine equally long gaps. The graph shows the detection probability as a function of the gap duration.}
+	\caption{\label{fig:obs_strategy}Probability of detecting at least one burst as a function of observing strategy. The assumed campaign consists of ten \new{equally long} observations of \new{a duration such that the Poissonian expectation value for the number of bursts is 10}, interrupted by nine equally long gaps. The graph shows the detection probability as a function of the gap duration.}
 \end{figure}
 
 Calculations such as the one shown here can be done for arbitrary observing strategies and may therefore be useful for their optimization.

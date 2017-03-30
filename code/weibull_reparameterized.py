@@ -116,15 +116,15 @@ def plot_obs(start,end,times,nFRB):
     
     nobs = len(start)
     burst = 0
-    fig = pl.figure(figsize=(3.3,5.5))
-    ax = fig.add_axes([0.02,0.1,0.96,0.89])
+    fig = pl.figure(figsize=(5,8.25))
+    ax = fig.add_axes([0.02,0.07,0.96,0.92])
     for i in range(nobs):
         ax.plot(np.array([0.,end[i] - start[i]])*24.,[i,i],color=obs_color,lw=2)
         for j in range(int(nFRB[i])):
             ax.plot((times[burst] - start[i])*24.,i,'.',color=burst_color,ms=8)
             burst += 1
     pl.ylim(-0.5,nobs - 0.5)
-    pl.xlabel(r'$t/\mathrm{h}$')
+    pl.xlabel(r'$t/\mathrm{hours}$')
     pl.tick_params(axis='y',labelleft=False,left=False,right=False)
     pl.xticks([0,1,2,3,4])
     pl.savefig('intervals.pdf',transparent=True)
@@ -188,40 +188,44 @@ def make_plot(thetavals,kvals,post,post_theta,post_k,ktrue=None,thetatrue=None,s
     obs_color = '#009E73'
     poiss_color = '#56B4E9'
 
-    fig = pl.figure(figsize=(6.6,6.6))
+    fig = pl.figure(figsize=(5,5))
     ax = fig.add_axes((0.1,0.1,0.6,0.6))
-    pl.contourf(thetavals,kvals,post.transpose(),[thresh99,post.max()],colors=obs_color,alpha=0.1)
-    pl.contourf(thetavals,kvals,post.transpose(),[thresh95,post.max()],colors=obs_color,alpha=0.1)
-    pl.contourf(thetavals,kvals,post.transpose(),[thresh68,post.max()],colors=obs_color,alpha=0.1)
-    c_s = pl.contour(thetavals,kvals,post.transpose(),[thresh99,thresh95,thresh68],linewidths=1,colors=obs_color)
-    pl.xlabel(r'$\log \left({r}\,{\mathrm{day}}\right)$')
-    pl.yticks(rotation='vertical')
-    pl.ylabel(r'$\log k$')
+    pl.contourf(10.**thetavals,10.**kvals,post.transpose(),[thresh99,post.max()],colors=obs_color,alpha=0.1)
+    pl.contourf(10.**thetavals,10.**kvals,post.transpose(),[thresh95,post.max()],colors=obs_color,alpha=0.1)
+    pl.contourf(10.**thetavals,10.**kvals,post.transpose(),[thresh68,post.max()],colors=obs_color,alpha=0.1)
+    c_s = pl.contour(10.**thetavals,10.**kvals,post.transpose(),[thresh99,thresh95,thresh68],linewidths=1,colors=obs_color)
+    pl.xlabel(r'${r}\,{\mathrm{day}}$')
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+    pl.yticks([0.2,0.3,0.4,0.5,0.6],['0.2','0.3','0.4','0.5','0.6'],rotation='vertical')
+    pl.ylabel(r'$k$')
     if (ktrue and thetatrue):
-        pl.plot(np.log10(thetatrue),np.log10(ktrue),color=burst_color,marker='+',ms=10)
+        pl.plot(thetatrue,ktrue,color=burst_color,marker='+',ms=10)
 
     ax = fig.add_axes((0.1,0.7,0.6,0.29))
-    pl.plot(thetavals,post_theta,color=obs_color)
+    ax.set_xscale('log')
+    pl.plot(10.**thetavals,post_theta,color=obs_color)
     pl.tick_params(axis='x',labelbottom=False)
     pl.yticks([1,2,3],rotation='vertical')
     pl.ylabel(r'$\mathcal{P}(\log r|N,t)$')
-    pl.xlim(thetavals.min(),thetavals.max())
+#    pl.xlim(thetavals.min(),thetavals.max())
     poiss_post = (3.3*(10.**thetavals))**17.*np.exp(-3.3*(10.**thetavals))
     poiss_post /= poiss_post.sum()*(thetavals[1] - thetavals[0])
     pl.ylim(0.,1.1*poiss_post.max())
-    pl.plot(thetavals,poiss_post,color=poiss_color)
+    pl.plot(10.**thetavals,poiss_post,color=poiss_color)
     if thetatrue:
-        pl.plot([np.log10(thetatrue),np.log10(thetatrue)],[0.,10.],color=burst_color)
+        pl.plot([thetatrue,thetatrue],[0.,10.],color=burst_color)
     
     ax = fig.add_axes((0.7,0.1,0.29,0.6))
-    pl.plot(post_k,kvals,color=obs_color)
+    ax.set_yscale('log')
+    pl.plot(post_k,10.**kvals,color=obs_color)
     pl.tick_params(axis='y',labelleft=False)
     pl.xticks([1,3,5])
     pl.xlabel(r'$\mathcal{P}(\log k|N,t)$')
-    pl.ylim(kvals.min(),kvals.max())
+    pl.ylim(10.**kvals.min(),10.**kvals.max())
     pl.xlim(0.,1.1*post_k.max())
     if ktrue:
-        pl.plot([0.,10.],[np.log10(ktrue),np.log10(ktrue)],color=burst_color)
+        pl.plot([0.,10.],[ktrue,ktrue],color=burst_color)
     
 #    pl.show()
     if save:
