@@ -8,7 +8,6 @@ Created on Wed Mar  8 16:33:21 2017
 
 from weibull_reparameterized import *
 
-np.random.seed(101)
 
 intlengths, intminlengths, start, end, times, nFRB = get_intervals()
 end -= start.min()
@@ -85,21 +84,27 @@ def sim_finite(start,end):
 
 
 if __name__ == '__main__':
-    n = np.zeros(300)
     thetavals = np.linspace(-1.0,2.0,30)
     kvals = np.linspace(-1.0,0.5,30)
+    
+    np.random.seed(101)
+    
     for i in range(300):
-        intlengths, intminlengths, n[i] = sim_independent(start,end)
+        intlengths, intminlengths, n = sim_independent(start,end)
         print i
         post, post_theta, post_k = get_posterior(thetavals,kvals,intlengths,intminlengths)
-        np.save('post_weibull_independent_%03i.npy'%i,post)
-        np.save('post_theta_weibull_independent_%03i.npy'%i,post)
-        np.save('post_k_weibull_independent_%03i.npy'%i,post)
-        make_plot(thetavals,kvals,post,post_theta,post_k,ktrue=k,thetatrue=1./(lam*sp.gamma(1.+1./k)),save=True,name='post_weibull_independent_%03i.png'%i)
+        np.save('../../sims/post_weibull_independent_%03i.npy'%i,post)
+        np.save('../../sims/post_theta_weibull_independent_%03i.npy'%i,post_theta)
+        np.save('../../sims/post_k_weibull_independent_%03i.npy'%i,post_k)
+#        make_plot(thetavals,kvals,post,post_theta,post_k,ktrue=k,thetatrue=1./(lam*sp.gamma(1.+1./k)),save=True,name='../../sims/post_weibull_independent_%03i.png'%i)
 
-
-#a,b,c = pl.hist(n,bins=40,range=(-0.5,39.5),normed=True)
-#n = np.arange(40)
-#pl.plot(n,17.**n*np.exp(-17.)/sp.gamma(n + 1.))
-#pl.savefig('hist_weibull_finite.png')
-#pl.show()
+    np.random.seed(101)
+    
+    for i in range(300):
+        intlengths, intminlengths, n = sim_finite(start,end)
+        print i
+        post, post_theta, post_k = get_posterior(thetavals,kvals,intlengths,intminlengths)
+        np.save('../../sims/post_weibull_finite_%03i.npy'%i,post)
+        np.save('../../sims/post_theta_weibull_finite_%03i.npy'%i,post_theta)
+        np.save('../../sims/post_k_weibull_finite_%03i.npy'%i,post_k)
+#        make_plot(thetavals,kvals,post,post_theta,post_k,ktrue=k,thetatrue=1./(lam*sp.gamma(1.+1./k)),save=True,name='../../sims/post_weibull_finite_%03i.png'%i)
