@@ -62,6 +62,7 @@ np.save('power_k0.34_theta5.7_logss.npy',out)
 
 ls = np.load('power_k0.34_theta5.7_logls.npy')
 ss = np.load('power_k0.34_theta5.7_logss.npy')
+
 kls = ls[0]
 kss = ss[0][ss[0] > kls.max()]
 powls = ls[1]
@@ -72,8 +73,22 @@ powspec = np.append(powls,powss)
 poissval = theta
 weibval = poissval*(sp.gamma(1. + 2./k)/sp.gamma(1. + 1./k)**2 - 1.)
 
-pl.loglog(nu,powspec)
-pl.loglog([nu[1],nu[-1]],[poissval,poissval])
-pl.loglog([nu[1],nu[-1]],[weibval,weibval])
+burst_color = '#E69F00'
+obs_color = '#009E73'
+poiss_color = '#56B4E9'
+
+fig = pl.figure(figsize=(5.,3.5))
+ax = fig.add_axes([0.1,0.15,0.89,0.84])
+
+pl.loglog([nu[1],nu[-1]],[poissval,poissval],'--',lw=2,color=burst_color)
+pl.loglog([nu[1],nu[-1]],[weibval,weibval],'--',lw=2,color=burst_color)
+pl.loglog([theta,theta],[poissval/2.,weibval*2.],'--',lw=2,color=burst_color)
+pl.loglog(nu,powspec,lw=2,color=obs_color)
+
 pl.ylim(poissval/2.,weibval*2.)
-pl.show()
+pl.xlim(nu[1],nu[-1])
+pl.xlabel(r'$\nu/(\mathrm{day}^{-1})$')
+pl.ylabel(r'$P(\nu)$')
+pl.yticks(rotation='vertical')
+pl.savefig('powspec_weibull.pdf')
+pl.clsoe()
