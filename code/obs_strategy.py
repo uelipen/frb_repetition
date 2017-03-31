@@ -16,7 +16,7 @@ steps = 30
 poneormore = np.zeros(steps)
 nbar = np.zeros(steps)
 tgaps = np.logspace(0.,np.log10(60),steps)/24.#np.arange(steps)/24.
-samples = 100000
+samples = 1000000
 for i in range(steps):
     print i
     tgap = tgaps[i]
