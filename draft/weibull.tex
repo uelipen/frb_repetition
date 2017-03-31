@@ -48,7 +48,7 @@ Fast Radio Bursts (FRBs) are bright, short-duration (ms), pulses detected in the
 
 The bursts of FRB121102 seem to happen in an irregular fashion, but appear to be clustered to some degree. This clustering may contain hints to the emission mechanism. Additionally, it has important consequences for the strategy that will have to be followed in order to detect the maximum number of bursts in the future and for the maximum repeat rate that one may infer from non-detections of repetitions for other FRBs, as discussed by \citet{connor-2016}.
 
-In this paper, we suggest to model the distribution of intervals between successive bursts of FRB121102. This allows us to consider simple deviations from Poissonian statistics and to quantify the clustering. To this end, we discuss the Weibull distribution in the next section. We introduce the data we use in Sect.~\ref{sec:data}, derive the statistical formalism in Sect.~\ref{sec:formalism}, and discuss our results and their consequences in Sect.~\ref{sec:results}.
+In this paper, we suggest to model the distribution of intervals between successive bursts of FRB121102. This allows us to consider simple deviations from Poissonian statistics and to quantify the clustering. To this end, we discuss the Weibull distribution in the next section. We introduce the data we use in Sect.~\ref{sec:data}, derive the statistical formalism in Sect.~\ref{sec:formalism}, and discuss our results and their consequences in Sect.~\ref{sec:results}. \new{A brief summary of our findings and their consequences is given in Sect.~\ref{sec:summary}.}
 
 
 \section{Beyond Poissonian statistics}
@@ -89,7 +89,7 @@ For this analysis, we use the bursts listed in Table~1 of \citet{spitler-2016} a
 	\caption{\label{fig:intervals}Lengths of observational intervals (\emph{green lines}) with positions of bursts within them (\emph{orange dots}). \new{The vertical ordering of the intervals is chronological with the most recent observation at the top.} All intervals have been shifted to the same start time.}
 \end{figure}
 
-\textbf{[TO DO: go through literature and extract more (newer) data]}
+\new{Further follow-up observations of FRB121102 have been conducted and more bursts have been detected \citep[e.g.,][]{chatterjee-2017}. However, the exact duration of each observation is not published and thus we do not include these in our analysis. While more data will constrain the parameters more tightly, the qualitative conclusions of this study will not change once the necessary data from newer observations are included.}
 
 
 \section{Formalism}
@@ -114,7 +114,7 @@ The first ingredient is the probability that $N$ bursts are observed, given the 
 \end{align}
 where $\theta(\cdot)$ is the Heaviside step function, which is 1 for a positive argument and 0 otherwise.
 
-The second ingredient, the probability for the $N+1$ first arrival times, given the parameters of the Weibull distribution, can be split into a product of probabilities for the inter-burst intervals,
+The second ingredient, the probability for \new{the arrival times of the $N+1$ first bursts}, given the parameters of the Weibull distribution, can be split into a product of probabilities for the inter-burst intervals,
 \begin{align}
 	\label{eq:likelihood_times}
 	\mathcal{P}(t_1,\dots,t_N,t_{N+1}|k,r) & = \mathcal{P}(t_1|k,r) \, \prod_{i = 1}^{N - 1} \mathcal{P}(t_{i+1}|t_{i},k,r)\nonumber\\
@@ -151,7 +151,7 @@ Thus, we can write the first factor in Eq.~\eqref{eq:likelihood_times} as
 	&= \frac{1}{\bar{d}} \, \int_{t_1}^\infty \mathrm{d}d_{01} \, \mathcal{W}(d_{01}|k,r)\nonumber\\
 	&= \frac{1}{\bar{d}} \, \mathrm{CDF}(t_1|k,r),
 \end{align}
-where we have defined the cumulative distribution function
+where we have defined the cumulative distribution function\footnote{\new{Note that, depending on convention, the cumulative distribution function may also be $1 = \mathrm{CDF}$.}}
 \begin{align}
 	\label{eq:cdf_weibull}
 	\mathrm{CDF}(d|k,r) &= \mathrm{e}^{-\left[d\,r\,\Gamma(1 + 1/k)\right]^k}
@@ -191,9 +191,13 @@ is the incomplete gamma function.
 This completes the derivation of the likelihood for a single finite-duration observation. In the limit that successive observations are widely spaced when compared to the spacing of the bursts, the individual observations become independent and the likelihood turns into a simple product of the likelihoods of the individual observations. In the following, we follow this approximation. In Appendix~\ref{sec:finiteness} we show that the error introduced by this simplification is small.
 
 To infer the parameters $k$ and $r$ we need to multiply the likelihood with a prior and calculate the posterior distribution for the two parameters. Since both parameters are strictly positive we work with their logarithms. Specifically, we choose independent Jeffreys priors for $k$ and $r$, i.e.,
-\begin{align}
-	\mathcal{P}(k,r) \propto k^{-1} \, r^{-1}.
-\end{align}
+\begin{equation}
+	\mathcal{P}(k,r) \propto k^{-1} \, r^{-1}
+\end{equation}
+\new{so that
+\begin{equation}
+	\mathcal{P}(\log k,\log r) = \mathrm{const}.
+\end{equation}}
 We then calculate the posterior as
 \begin{align}
 	\mathcal{P}(k,r|N,t_1,\dots,t_N) &\propto \mathcal{P}(N,t_1,\dots,t_N|k,r)\,\mathcal{P}(k,r).
@@ -216,7 +220,7 @@ We make use of the data shown in Fig.~\ref{fig:intervals} and insert them into E
 
 From Fig.~\ref{fig:result} we immediately see that the Poissonian case of $k=1$ is strongly disfavored by the data. The posterior mean value for the shape parameter is \new{$\left<k\right>_{(k|N,t)} = 0.34^{+0.6}_{-0.5}$} and the posterior mean for the rate is \new{$\left<r\right>_{(r|N,t)} = 5.7^{+3.0}_{-2.0}/\mathrm{day}$ The uncertainties given here are the 68\,\% confidence intervals. The estimated rate is similar to the Poissonian rate, but the uncertainty interval is about twice as wide.} Since the value of $k$ is less than 1, there is indeed an excess of short inter-burst intervals. A consequence of this is that, if a burst is observed, the probability that another burst happens shortly after is increased.
 
-To illustrate the effect this has on the number of burst during an observation, we consider the case of a Weibull distribution with parameters fixed to the posterior mean values. We numerically calculate the probability to see $N$ bursts during an observation that lasts ten times the mean burst separation, i.e., $\Delta = 10/r$. This is shown in Fig.~\ref{fig:n_singleint}. For comparison, we also plot the Poissonian probability. While the mean number of bursts is the same for both cases, the Weibull case has a much higher probability of yielding no bursts at all. The excess of short intervals makes it likely that either no burst is seen (if the observation happens to fall within a long inter-burst interval) or several bursts are seen, since the presence of one burst makes the presence of other bursts in the temporal vicinity more likely.
+To illustrate the effect this has on the number of burst during an observation, we consider the case of a Weibull distribution with parameters fixed to the posterior mean values. We numerically calculate the probability to see $N$ bursts during an observation that lasts ten times the mean burst separation, i.e., $\Delta = 10/r$. \new{For the posterior-mean repetition rate of FRB121102, this is a 42-hour observation. The result} is shown in Fig.~\ref{fig:n_singleint}. For comparison, we also plot the Poissonian probability. While the mean number of bursts is the same for both cases, the Weibull case has a much higher probability of yielding no bursts at all. The excess of short intervals makes it likely that either no burst is seen (if the observation happens to fall within a long inter-burst interval) or several bursts are seen, since the presence of one burst makes the presence of other bursts in the temporal vicinity more likely.
 
 \begin{figure}
 	\includegraphics[width=1.0\columnwidth]{n_singleint.pdf}
@@ -253,7 +257,7 @@ We can calculate a density of bursts by dividing by the bin width, $n(t) = N(t)/
 
 \begin{figure}
 	\includegraphics[width=1.0\columnwidth]{powspec_weibull.pdf}
-	\caption{\label{fig:powspec}\new{Power spectrum of the burst number density for the Weibull distribution with parameters fixed to the posterior-mean values (\emph{green line}). The lower and upper \emph{orange dashed} lines show the Poissonian power spectrum with the same rate and with a rate increased by a factor $(\Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 1)$, respectively. The vertical \emph{cyan dashed} line marks the mean rate $r$.}}
+	\caption{\label{fig:powspec}\new{Power spectrum of the burst number density for the Weibull distribution with parameters fixed to the posterior-mean values (\emph{green line}). The lower and upper \emph{orange dashed} lines show the Poissonian power spectrum with the same rate and with a rate increased by a factor $(\Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 1)$, respectively. The vertical \emph{orange dashed} line marks the mean rate $\left<r\right>_{(r|N,t)}$.}}
 \end{figure}
 
 
@@ -272,7 +276,16 @@ To illustrate this effect, we consider \new{again the example of an observation 
 Calculations such as the one shown here can be done for arbitrary observing strategies and may therefore be useful for their optimization.
 
 
-\textbf{[TO DO: Maybe a brief summary; perhaps some comments on alternative extensions beyond Poissonian statistics (gamma distribution, log-normal Poisson,\dots)]}
+\section{Summary}
+\label{sec:summary}
+
+
+\new{We have used the Weibull distribution as a generalization from Poisson statistics. This is not the only possible extension. Examples for other extensions could be a gamma distribution of intervals or a Poissonian model with time-varying rate, which could for example be modeled as a log-normal random field. We use the Weibull distribution as a simple, mathematically tractable, model that allows us to demonstrate that the available information on burst arrival times and the observation timing strongly disfavors Poissonian statistics and favors instead a clustered distribution. The most important consequences are:
+\begin{itemize}
+	\item For a continuous observation, a non-detection of bursts is much more likely than in the Poissonian case.
+	\item Consequently, upper limits on repetition rates derived from non-detections become much looser and rate estimates in general less certain.
+	\item A spread-out observation interspersed with gaps is better suited for detecting further bursts than continuous observations with the same total observation time.
+\end{itemize}}
 
 
 
@@ -292,6 +305,8 @@ To illustrate the similarity between the posterior distributions, we plot the av
 \end{figure}
 
 We can further check the accuracy of our confidence contours by computing the fraction of simulations for which the true parameter values lie within each contour. The result of this test is shown in Table~\ref{tab:contour_stats} and confirms that the size of our uncertainty region is accurate.
+
+\new{As a null test, we have also run a similar set of simulations where we set $k=1$, i.e., the Poissonian case. In this case, we do find a posterior that is centered on $k=1$, thus confirming that the non-Poissonian structure we infer is not an artifact of our analysis.}
 
 \begin{table}
 \begin{center}
