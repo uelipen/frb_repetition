@@ -80,12 +80,17 @@ poiss_color = '#56B4E9'
 fig = pl.figure(figsize=(5.,3.5))
 ax = fig.add_axes([0.1,0.15,0.89,0.84])
 
-pl.loglog([nu[1],nu[-1]],[poissval,poissval],'--',lw=2,color=burst_color)
+#pl.loglog([nu[1],nu[-1]],[poissval,poissval],'--',lw=2,color=burst_color)
 pl.loglog([nu[1],nu[-1]],[weibval,weibval],'--',lw=2,color=burst_color)
-pl.loglog([theta,theta],[poissval/2.,weibval*2.],'--',lw=2,color=burst_color)
-pl.loglog(nu,powspec,lw=2,color=obs_color)
+#pl.loglog([theta,theta],[poissval/2.,weibval*2.],'--',lw=2,color=burst_color)
+pl.loglog([theta,theta],[2.e-1,2.e2],'--',lw=2,color=burst_color)
+alpha = (theta*sp.gamma(1.+1./k))**k
+#func = nu**(k-1.) #- alpha*nu**(2.*k - 1.) + 0.5*alpha**2*nu**(3.*k - 1.)
+#pl.loglog(nu,func/func[-1]*(powspec[-1]-poissval),'--',lw=2,color=poiss_color)
+pl.loglog(nu,powspec - poissval,lw=2,color=obs_color)
 
-pl.ylim(poissval/2.,weibval*2.)
+#pl.ylim(poissval/2.,weibval*2.)
+pl.ylim(2.e-1,2.e2)
 pl.xlim(nu[1],nu[-1])
 pl.xlabel(r'$\nu/(\mathrm{day}^{-1})$')
 pl.ylabel(r'$P(\nu)$')
