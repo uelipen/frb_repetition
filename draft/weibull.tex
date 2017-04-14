@@ -262,6 +262,18 @@ We can calculate a density of bursts by dividing by the bin width, $n(t) = N(t)/
 	\caption{\label{fig:powspec}\new{Power spectrum of the burst number density for the Weibull distribution with parameters fixed to the posterior-mean values (\emph{green line}). The Poissonian expectation has been subtracted to show the excess power due to clustering. The horizontal \emph{orange dashed} line shows the Poissonian power spectrum increased by a factor $(\Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 1)$. The vertical \emph{orange dashed} line marks the mean rate $\left<r\right>_{(r|N,t)}$.}}
 \end{figure}
 
+\textcolor{blue}{
+A common parametrization of temporal clustering is throught the two
+point correlation function, $\xi(t)$, which describes the fractional 
+excess over Poissonian at time lag $t$. The asymptotic forms of the
+correlation function at short and long lags are:}
+\begin{equation}
+\xi(t)=\left\{ \begin{array}{ll} \propto t^{k-1} & t \lesssim t_0 \\
+              \propto 1/t & t \gg t_0\end{array} \right.
+\end{equation}
+
+{\bf TODO: compute the actual prefactors}
+
 
 \subsection{Observational strategies}
 \label{sec:obs_strategies}
