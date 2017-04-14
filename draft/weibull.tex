@@ -65,7 +65,7 @@ If the bursts of FRB121102 were distributed in time according to a Poisson point
 where $r$ is the constant rate of bursts. One possible generalization of this distribution of intervals is the Weibull distribution,
 \begin{equation}
 	\label{eq:weibull}
-	\mathcal{W}(\d|k,r) = k \, \Gamma\left(1 + 1/k\right) \, r \left[\d \, r \, \Gamma\left(1 + 1/k\right)\right]^{k - 1} \, \mathrm{e}^{-\left[\d \, r \, \Gamma\left(1 + 1/k\right)\right]^k},
+	\mathcal{W}(\d|k,r) = k\d^{-1} \, \left[\d \, r\, \Gamma\left(1 + 1/k\right)\right]^k \, \mathrm{e}^{-\left[\d \, r \, \Gamma\left(1 + 1/k\right)\right]^k},
 \end{equation}
 which has an additional shape parameter $k$. Here,
 \begin{equation}
@@ -176,13 +176,13 @@ Strictly speaking, Eq.~\eqref{eq:likelihood_weibull} is only valid for $N > 1$. 
 
 For the case $N=0$, i.e., an observation without detected bursts, we follow a similar argument as above and marginalize over the time of the first burst after the start of the observations,
 \begin{align}
-	P(N=0|k,r) &= \int_\Delta^\infty \mathrm{d}t_1 \, \mathcal{P}(t_1|k,r)\nonumber\\
+	\mathcal{P}(N=0|k,r) &= \int_\Delta^\infty \mathrm{d}t_1 \, \mathcal{P}(t_1|k,r)\nonumber\\
 	&= \frac{1}{\bar{\d}} \, \int_\Delta^\infty \mathrm{d}t_1 \, \mathrm{CDF}(t_1|k,r).
 \end{align}
 Plugging in Eq.~\eqref{eq:cdf_weibull} yields the result for the Weibull distribution,
 \begin{align}
 	\label{eq:likelihood_N0}
-	P(N=0|k,r) &= \frac{\Gamma_\mathrm{i}{\left(1/k, \left(\Delta\,r\,\Gamma(1+1/k)\right)^k\right)}}{k\,\Gamma{\left(1+1/k\right)}},
+	\mathcal{P}(N=0|k,r) &= \frac{\Gamma_\mathrm{i}{\left(1/k, \left(\Delta\,r\,\Gamma(1+1/k)\right)^k\right)}}{k\,\Gamma{\left(1+1/k\right)}},
 \end{align}
 where
 \begin{align}
@@ -263,16 +263,21 @@ We can calculate a density of bursts by dividing by the bin width, $n(t) = N(t)/
 \end{figure}
 
 \textcolor{blue}{
-A common parametrization of temporal clustering is throught the two
-point correlation function, $\xi(t)$, which describes the fractional 
+A common parametrization of temporal clustering is through the Fourier
+Transform of the pwoer spectrum, called the two
+point correlation function, $\xi(t) \equiv (2\pi)^{-1}\int_0^\infty
+P(\nu) \exp(i t\nu)d\nu$, which describes the fractional 
 excess over Poissonian at time lag $t$. The asymptotic forms of the
 correlation function at short and long lags are:}
 \begin{equation}
-\xi(t)=\left\{ \begin{array}{ll} \propto t^{k-1} & t \lesssim t_0 \\
-              \propto 1/t & t \gg t_0\end{array} \right.
+\xi(t)=\left\{ \begin{array}{ll}  k(k-1) \, \left[\, r\, \Gamma\left(1 + 1/k\right)\right]^k  t^{k-1} & t \lesssim 1/r \\
+               \frac{ \Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 2}{rt} & t \gg 1/r\end{array} \right.
 \end{equation}
 
-{\bf TODO: compute the actual prefactors}
+{\bf TODO: check the prefactors, maybe show the corresponding form for the
+  power spectrum}
+
+% 
 
 
 \subsection{Observational strategies}
