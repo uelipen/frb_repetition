@@ -50,7 +50,8 @@ Fast Radio Bursts (FRBs) are bright, short-duration (ms), pulses detected in the
 
 The bursts of FRB121102 seem to happen in an irregular fashion, but appear to be clustered to some degree. This clustering may contain hints to the emission mechanism. Additionally, it has important consequences for the strategy that will have to be followed in order to detect the maximum number of bursts in the future and for the maximum repeat rate that one may infer from non-detections of repetitions for other FRBs, as discussed by \citet{connor-2016}.
 
-In this paper, we suggest to model the distribution of intervals between successive bursts of FRB121102. This allows us to consider simple deviations from Poissonian statistics and to quantify the clustering. To this end, we discuss the Weibull distribution in the next section. We introduce the data we use in Sect.~\ref{sec:data}, derive the statistical formalism in Sect.~\ref{sec:formalism}, and discuss our results and their consequences in Sect.~\ref{sec:results}. \new{A brief summary of our findings and their consequences is given in Sect.~\ref{sec:summary}.}
+In this paper, we suggest to model the distribution of intervals between successive bursts of FRB121102. This allows us to consider simple deviations from Poissonian statistics and to quantify the clustering.  Any clustering parameter estimation explicitily or implicitly requires a Bayesian prior to quantify error bars on the inferred parameters.
+To this end, we discuss the Weibull distribution in the next section. We introduce the data we use in Sect.~\ref{sec:data}, derive the statistical formalism in Sect.~\ref{sec:formalism}, and discuss our results and their consequences in Sect.~\ref{sec:results}. \new{A brief summary of our findings and their consequences is given in Sect.~\ref{sec:summary}.}
 
 
 \section{Beyond Poissonian statistics}
@@ -176,13 +177,13 @@ Strictly speaking, Eq.~\eqref{eq:likelihood_weibull} is only valid for $N > 1$. 
 
 For the case $N=0$, i.e., an observation without detected bursts, we follow a similar argument as above and marginalize over the time of the first burst after the start of the observations,
 \begin{align}
-	\mathcal{P}(N=0|k,r) &= \int_\Delta^\infty \mathrm{d}t_1 \, \mathcal{P}(t_1|k,r)\nonumber\\
+	P(N=0|k,r) &= \int_\Delta^\infty \mathrm{d}t_1 \, \mathcal{P}(t_1|k,r)\nonumber\\
 	&= \frac{1}{\bar{\d}} \, \int_\Delta^\infty \mathrm{d}t_1 \, \mathrm{CDF}(t_1|k,r).
 \end{align}
 Plugging in Eq.~\eqref{eq:cdf_weibull} yields the result for the Weibull distribution,
 \begin{align}
 	\label{eq:likelihood_N0}
-	\mathcal{P}(N=0|k,r) &= \frac{\Gamma_\mathrm{i}{\left(1/k, \left(\Delta\,r\,\Gamma(1+1/k)\right)^k\right)}}{k\,\Gamma{\left(1+1/k\right)}},
+	P(N=0|k,r) &= \frac{\Gamma_\mathrm{i}{\left(1/k, \left(\Delta\,r\,\Gamma(1+1/k)\right)^k\right)}}{k\,\Gamma{\left(1+1/k\right)}},
 \end{align}
 where
 \begin{align}
