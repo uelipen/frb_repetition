@@ -1,0 +1,14 @@
+dev x11
+dev postencap weibull.eps
+data corr.dat
+lines 2 2500
+read { x 1 c 2 }
+set lx=lg((x)/512)
+set lc=lg(c)
+limits lx lc
+connect lx lc
+ticksize -1 0 -1 0
+box
+ctype green
+relocate 0 0
+draw -3 $(3*(1-0.34))

@@ -35,7 +35,7 @@ $^{4}$Perimeter Institute for Theoretical Physics, 31 Caroline St.\ North, Water
 \maketitle
 
 \begin{abstract}
-	The Fast Radio Burst FRB121102 has been observed to repeat in an irregular fashion. Using published timing data of the observed bursts, we show that Poissonian statistics are not a good description of this random process. As an alternative we suggest to describe the intervals between bursts with a Weibull distribution with a shape parameter smaller than one, which allows for the clustered nature of the bursts. We quantify the amount of clustering using the parameters of the Weibull distribution and discuss the consequences that it has for the detection probabilities of future observations and for the optimization of observing strategies. \new{Allowing for this generalization, we find a mean repetition rate of $5.7^{+3.0}_{-2.0}$ per day.}
+	The Fast Radio Burst FRB121102 has been observed to repeat in an irregular fashion. Using published timing data of the observed bursts, we show that Poissonian statistics are not a good description of this random process. As an alternative we suggest to describe the intervals between bursts with a Weibull distribution with a shape parameter smaller than one, which allows for the clustered nature of the bursts. We quantify the amount of clustering using the parameters of the Weibull distribution and discuss the consequences that it has for the detection probabilities of future observations and for the optimization of observing strategies. \new{Allowing for this generalization, we find a mean repetition rate of $r=5.7^{+3.0}_{-2.0}$ per day and index $k=0.34^{+0.06}_{-0.05}$ for a correlation function $\xi(t)=(t/t_0)^{k-1}$}.
 \end{abstract}
 
 \begin{keywords}
@@ -50,7 +50,8 @@ Fast Radio Bursts (FRBs) are bright, short-duration (ms), pulses detected in the
 
 The bursts of FRB121102 seem to happen in an irregular fashion, but appear to be clustered to some degree. This clustering may contain hints to the emission mechanism. Additionally, it has important consequences for the strategy that will have to be followed in order to detect the maximum number of bursts in the future and for the maximum repeat rate that one may infer from non-detections of repetitions for other FRBs, as discussed by \citet{connor-2016}.
 
-In this paper, we suggest to model the distribution of intervals between successive bursts of FRB121102. This allows us to consider simple deviations from Poissonian statistics and to quantify the clustering. To this end, we discuss the Weibull distribution in the next section. We introduce the data we use in Sect.~\ref{sec:data}, derive the statistical formalism in Sect.~\ref{sec:formalism}, and discuss our results and their consequences in Sect.~\ref{sec:results}. \new{A brief summary of our findings and their consequences is given in Sect.~\ref{sec:summary}.}
+In this paper, we suggest to model the distribution of intervals between successive bursts of FRB121102. This allows us to consider simple deviations from Poissonian statistics and to quantify the clustering.  Any clustering parameter estimation explicitily or implicitly requires a Bayesian prior to quantify error bars on the inferred parameters.
+To this end, we discuss the Weibull distribution in the next section. We introduce the data we use in Sect.~\ref{sec:data}, derive the statistical formalism in Sect.~\ref{sec:formalism}, and discuss our results and their consequences in Sect.~\ref{sec:results}. \new{A brief summary of our findings and their consequences is given in Sect.~\ref{sec:summary}.}
 
 
 \section{Beyond Poissonian statistics}
@@ -65,7 +66,7 @@ If the bursts of FRB121102 were distributed in time according to a Poisson point
 where $r$ is the constant rate of bursts. One possible generalization of this distribution of intervals is the Weibull distribution,
 \begin{equation}
 	\label{eq:weibull}
-	\mathcal{W}(\d|k,r) = k \, \Gamma\left(1 + 1/k\right) \, r \left[\d \, r \, \Gamma\left(1 + 1/k\right)\right]^{k - 1} \, \mathrm{e}^{-\left[\d \, r \, \Gamma\left(1 + 1/k\right)\right]^k},
+	\mathcal{W}(\d|k,r) = k\d^{-1} \, \left[\d \, r\, \Gamma\left(1 + 1/k\right)\right]^k \, \mathrm{e}^{-\left[\d \, r \, \Gamma\left(1 + 1/k\right)\right]^k},
 \end{equation}
 which has an additional shape parameter $k$. Here,
 \begin{equation}
@@ -261,6 +262,23 @@ We can calculate a density of bursts by dividing by the bin width, $n(t) = N(t)/
 	\includegraphics[width=1.0\columnwidth]{powspec_weibull.pdf}
 	\caption{\label{fig:powspec}\new{Power spectrum of the burst number density for the Weibull distribution with parameters fixed to the posterior-mean values (\emph{green line}). The Poissonian expectation has been subtracted to show the excess power due to clustering. The horizontal \emph{orange dashed} line shows the Poissonian power spectrum increased by a factor $(\Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 1)$. The vertical \emph{orange dashed} line marks the mean rate $\left<r\right>_{(r|N,t)}$.}}
 \end{figure}
+
+\textcolor{blue}{
+A common parametrization of temporal clustering is through the Fourier
+Transform of the pwoer spectrum, called the two
+point correlation function, $\xi(t) \equiv (2\pi)^{-1}\int_0^\infty
+P(\nu) \exp(i t\nu)d\nu$, which describes the fractional 
+excess over Poissonian at time lag $t$. The asymptotic forms of the
+correlation function at short and long lags are:}
+\begin{equation}
+\xi(t)=\left\{ \begin{array}{ll}  k(k-1) \, \left[\, r\, \Gamma\left(1 + 1/k\right)\right]^k  t^{k-1} & t \lesssim 1/r \\
+               \frac{ \Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 2}{rt} & t \gg 1/r\end{array} \right.
+\end{equation}
+
+{\bf TODO: check the prefactors, maybe show the corresponding form for the
+  power spectrum}
+
+% 
 
 
 \subsection{Observational strategies}
