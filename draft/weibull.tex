@@ -9,8 +9,9 @@
 \usepackage{amssymb}
 
 
-\newcommand{\new}[1]{\textcolor{cyan}{#1}}
-%\newcommand{\new}[1]{#1}
+%\newcommand{\new}[1]{\textcolor{cyan}{#1}}
+\newcommand{\new}[1]{#1}
+\newcommand{\hide}[1]{}
 \renewcommand{\d}{\delta}
 
 
@@ -263,19 +264,20 @@ We can calculate a density of bursts by dividing by the bin width, $n(t) = N(t)/
 	\caption{\label{fig:powspec}\new{Power spectrum of the burst number density for the Weibull distribution with parameters fixed to the posterior-mean values (\emph{green line}). The Poissonian expectation has been subtracted to show the excess power due to clustering. The horizontal \emph{orange dashed} line shows the Poissonian power spectrum increased by a factor $(\Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 1)$. The vertical \emph{orange dashed} line marks the mean rate $\left<r\right>_{(r|N,t)}$.}}
 \end{figure}
 
-\textcolor{blue}{
+\new{
 A common parametrization of temporal clustering is through the Fourier
 Transform of the power spectrum, called the two-point correlation function, $\xi(t) \equiv (2\pi)^{-1}\int_0^\infty
 P(\nu) \, \exp(i t\nu)\, \mathrm{d}\nu$, which describes the fractional 
 excess over Poissonian at time lag $t$. The asymptotic forms of the
-correlation function at short and long lags are}
+correlation function at short and long lags are
+}
 \begin{equation}
-\xi(t)=\left\{ \begin{array}{ll}  k(k-1) \, \left[\, r\, \Gamma\left(1 + 1/k\right)\right]^k  t^{k-1} & t \lesssim 1/r \\
-               \frac{ \Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 2}{rt} & t \gg 1/r\end{array} \right..
+\xi(t)=\left\{ \begin{array}{ll}  k(k-1) \, \left[\, \Gamma\left(1 + 1/k\right)\right]^k  (rt)^{k-1} & t \lesssim 10/r \\
+               \frac{ \Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 2}{rt} & t \gg 10/r\end{array} \right..
 \end{equation}
 
-{\bf TODO: check the prefactors, maybe show the corresponding form for the
-  power spectrum}
+%{\bf TODO: check the prefactors, maybe show the corresponding form for the
+%  power spectrum}
 
 % 
 
@@ -316,14 +318,14 @@ In our analysis we treat each of the observational intervals shown in Fig.~\ref{
 
 We run two series of simulations of Weibull-distributed events, with parameters fixed to the posterior-mean values. In the first series, we simulate events in the intervals shown in Fig.~\ref{fig:intervals} assuming that they are completely independent, i.e., infinitely separated. In the second series, we simulate the intervals at their actual separation. We then apply the analysis described in Sect.~\ref{sec:formalism} to each simulated data set. If the finite separation of the observations had a great effect, we would expect to see posterior distributions that are different for the two simulation series and are shifted away from the simulated parameters in the case of the realistic simulation. However, neither appears to be the case for the two times 240 simulations that we have run.
 
-To illustrate the similarity between the posterior distributions, we plot the average of the 240 posteriors for both types of simulations in Fig.~\ref{fig:finiteness}. The two mean posteriors are very similar, at least down to the 95\,\%-confidence level. We also note that the center of mass of both average posteriors is very close to the values of the parameters that were used in the simulations. Thus we see that our analysis is unbiased, even though we are neglecting the finite separation of the observations.
+\hide{To illustrate the similarity between the posterior distri- butions, we plot the average of the 240 posteriors for both types of simulations in Fig.~\ref{fig:finiteness}. The two mean posteriors are very similar, at least down to the 95\,\%-confidence level. We also note that the center of mass of both average posteriors is very close to the values of the parameters that were used in the simulations. Thus we see that our analysis is unbiased, even though we are neglecting the finite separation of the observations.
 
 \begin{figure}
 	\includegraphics[width=1.0\columnwidth]{finiteness.pdf}
 	\caption{\label{fig:finiteness}Average posterior distributions over 240 simulations. The \emph{green} contours show the mean posterior in simulations that assume the observational intervals to be independent, whereas the \emph{blue} contours show the result of the same analysis applied to simulated data that takes the finite separation of the observations into account. The orange + marks the parameter values used in the simulations. \textbf{[TO DO: Still working on these sims; hopefully will come out a bit nicer with better statistics.]}}
 \end{figure}
-
-We can further check the accuracy of our confidence contours by computing the fraction of simulations for which the true parameter values lie within each contour. The result of this test is shown in Table~\ref{tab:contour_stats} and confirms that the size of our uncertainty region is accurate.
+}
+We check the accuracy of our model by computing the fraction of simulations for which the true parameter values lie within each contour. The result of this test is shown in Table~\ref{tab:contour_stats} and confirms that the size of our uncertainty region is accurate.
 
 \new{As a null test, we have also run a similar set of simulations where we set $k=1$, i.e., the Poissonian case. In this case, we do find a posterior that is centered on $k=1$, thus confirming that the non-Poissonian structure we infer is not an artifact of our analysis.}
 
