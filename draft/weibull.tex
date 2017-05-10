@@ -265,14 +265,13 @@ We can calculate a density of bursts by dividing by the bin width, $n(t) = N(t)/
 
 \textcolor{blue}{
 A common parametrization of temporal clustering is through the Fourier
-Transform of the pwoer spectrum, called the two
-point correlation function, $\xi(t) \equiv (2\pi)^{-1}\int_0^\infty
-P(\nu) \exp(i t\nu)d\nu$, which describes the fractional 
+Transform of the power spectrum, called the two-point correlation function, $\xi(t) \equiv (2\pi)^{-1}\int_0^\infty
+P(\nu) \, \exp(i t\nu)\, \mathrm{d}\nu$, which describes the fractional 
 excess over Poissonian at time lag $t$. The asymptotic forms of the
-correlation function at short and long lags are:}
+correlation function at short and long lags are}
 \begin{equation}
 \xi(t)=\left\{ \begin{array}{ll}  k(k-1) \, \left[\, r\, \Gamma\left(1 + 1/k\right)\right]^k  t^{k-1} & t \lesssim 1/r \\
-               \frac{ \Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 2}{rt} & t \gg 1/r\end{array} \right.
+               \frac{ \Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 2}{rt} & t \gg 1/r\end{array} \right..
 \end{equation}
 
 {\bf TODO: check the prefactors, maybe show the corresponding form for the
