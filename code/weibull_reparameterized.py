@@ -268,7 +268,7 @@ if __name__ == '__main__':
         
     plot_obs(start,end,times,nFRB)
     thetavals = np.linspace(-1.0,2.0,100)
-    kvals = np.linspace(-0.8,-0.2,100)
+    kvals = np.linspace(-0.8,+0.4,200)
     post, post_theta, post_k = get_posterior(thetavals,kvals,intlengths,intminlengths)
     np.save('post.npy',post)
     np.save('post_theta.npy',post_theta)
