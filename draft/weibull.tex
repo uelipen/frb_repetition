@@ -116,7 +116,7 @@ The first ingredient is the probability that $N$ bursts are observed, given the 
 \begin{align}
 	P(N|t_1,\dots,t_N,t_{N+1}) &= \theta(\Delta - t_N) \, \theta(t_{N+1} - \Delta),
 \end{align}
-where $\theta(\cdot)$ is the Heaviside step function, which is 1 for a positive argument and 0 otherwise.
+where $\theta(\cdot)$ is the Heaviside step function, which is 1 for a positive argument and 0 otherwise.\footnote{We use $\mathcal{P}$ to denote probability densities and $P$ to denote probabilities.}
 
 The second ingredient, the probability for \new{the arrival times of the $N+1$ first bursts}, given the parameters of the Weibull distribution, can be split into a product of probabilities for the inter-burst intervals,
 \begin{align}
@@ -125,7 +125,7 @@ The second ingredient, the probability for \new{the arrival times of the $N+1$ f
 	&= \mathcal{P}(t_1|k,r) \, \prod_{i = 1}^{N - 1} \mathcal{W}(t_{i+1} - t_i|,k,r).
 \end{align}
 
-The first factor in the last equation, the probability density for the time of the first observed burst, is slightly more complicated than the others. Since there is no previously observed burst, this is not a pure Weibull distribution. However, we will relate the two distributions in the following way: Consider the interval $\d_{01} = t_1 - t_0$ between the last unobserved burst and the first observed burst. The probability distribution for the length of this interval is characterized by the Weibull distribution, which describes the distribution for interval lengths in general, and the fact that the observation started within this interval. The probability for the latter fact is proportional to the length of the interval so that we can write\footnote{We use $\mathcal{P}$ to denote probability densities and $P$ to denote probabilities.}
+The first factor in the last equation, the probability density for the time of the first observed burst, is slightly more complicated than the others. Since there is no previously observed burst, this is not a pure Weibull distribution. However, we will relate the two distributions in the following way: Consider the interval $\d_{01} = t_1 - t_0$ between the last unobserved burst and the first observed burst. The probability distribution for the length of this interval is characterized by the Weibull distribution, which describes the distribution for interval lengths in general, and the fact that the observation started within this interval. The probability for the latter fact is proportional to the length of the interval so that we can write
 \begin{align}
 	P(\textnormal{obs.\ start during }\d_{01} | \d_{01}) &\propto \d_{01}
 \end{align}
@@ -155,7 +155,7 @@ Thus, we can write the first factor in Eq.~\eqref{eq:likelihood_times} as
 	&= \frac{1}{\bar{\d}} \, \int_{t_1}^\infty \mathrm{d}\d_{01} \, \mathcal{W}(\d_{01}|k,r)\nonumber\\
 	&= \frac{1}{\bar{\d}} \, \mathrm{CDF}(t_1|k,r),
 \end{align}
-where we have defined the cumulative distribution function\footnote{\new{Note that, depending on convention, the cumulative distribution function may also be $1 = \mathrm{CDF}$.}}
+where we have defined the cumulative distribution function\footnote{\new{Note that, depending on convention, the cumulative distribution function may also be $1 - \mathrm{CDF}$.}}
 \begin{align}
 	\label{eq:cdf_weibull}
 	\mathrm{CDF}(\d|k,r) &= \mathrm{e}^{-\left[\d\,r\,\Gamma(1 + 1/k)\right]^k}
@@ -261,7 +261,7 @@ We can calculate a density of bursts by dividing by the bin width, $n(t) = N(t)/
 
 \begin{figure}
 	\includegraphics[width=1.0\columnwidth]{powspec_weibull.pdf}
-	\caption{\label{fig:powspec}\new{Power spectrum of the burst number density for the Weibull distribution with parameters fixed to the posterior-mean values (\emph{green line}). The Poissonian expectation has been subtracted to show the excess power due to clustering. The horizontal \emph{orange dashed} line shows the Poissonian power spectrum increased by a factor $(\Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 1)$. The vertical \emph{orange dashed} line marks the mean rate $\left<r\right>_{(r|N,t)}$.}}
+	\caption{\label{fig:powspec}\new{Power spectrum of the burst number density for the Weibull distribution with parameters fixed to the posterior-mean values (\emph{green line}). The Poissonian expectation has been subtracted to show the excess power due to clustering. The horizontal \emph{orange dashed} line shows the Poissonian power spectrum increased by a factor $(\Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 1)\sim 17.6$. The vertical \emph{orange dashed} line marks the mean rate $\left<r\right>_{(r|N,t)}$.}}
 \end{figure}
 
 \new{
@@ -272,7 +272,7 @@ excess over Poissonian at time lag $t$. The asymptotic forms of the
 correlation function at short and long lags are
 }
 \begin{equation}
-\xi(t)=\left\{ \begin{array}{ll}  k(k-1) \, \left[\, \Gamma\left(1 + 1/k\right)\right]^k  (rt)^{k-1} & t \lesssim 10/r \\
+\xi(t)=\left\{ \begin{array}{ll}  k \, \left[\, \Gamma\left(1 + 1/k\right)\right]^k  (rt)^{k-1} & t \lesssim 10/r \\
                \frac{ \Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 2}{rt} & t \gg 10/r\end{array} \right..
 \end{equation}
 

@@ -30,4 +30,11 @@
   do i=1,n/2
      write(10,*) i-1,rho(i)
   end do
+  open(10,file='corrbin.dat')
+  i=0
+  do
+     if (2**(i+1)>n*nr) exit
+     write(10,*) 2.**(i+0.5)/nr,sum(rho(2**i:2**(i+1)))/(2**i)
+     i=i+1
+  end do
 end program
