@@ -39,8 +39,10 @@ xpr[1::2] = x + 0.5
 poisspr[1::2] = poiss
 weibpr[1::2] = a
 pl.plot(xpr,weibpr,color=obs_color,lw=2)
-pl.plot(xpr,poisspr,color=poiss_color,lw=2)
+l, = pl.plot(xpr,poisspr,color=poiss_color,lw=2)
+l.set_dashes([4,2])
 pl.xlim((-0.5,bins - 0.5))
+pl.ylim(0.,0.27)
 pl.xlabel(r'$N$')
 pl.ylabel(r'$P(N|k,r)$')
 pl.yticks([0.,0.1,0.2],rotation='vertical')
