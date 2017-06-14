@@ -199,6 +199,7 @@ def make_plot(thetavals,kvals,post,post_theta,post_k,ktrue=None,thetatrue=None,s
     ax.set_yscale('log')
     pl.yticks([0.2,0.3,0.4,0.5,0.6],['0.2','0.3','0.4','0.5','0.6'],rotation='vertical')
     pl.ylabel(r'$k$')
+    pl.ylim(10.**-0.8,10.**-0.2)
     if (ktrue and thetatrue):
         pl.plot(thetatrue,ktrue,color=burst_color,marker='+',ms=10)
 
@@ -212,7 +213,8 @@ def make_plot(thetavals,kvals,post,post_theta,post_k,ktrue=None,thetatrue=None,s
     poiss_post = (3.3*(10.**thetavals))**17.*np.exp(-3.3*(10.**thetavals))
     poiss_post /= poiss_post.sum()*(thetavals[1] - thetavals[0])
     pl.ylim(0.,1.1*poiss_post.max())
-    pl.plot(10.**thetavals,poiss_post,color=poiss_color)
+    l, = pl.plot(10.**thetavals,poiss_post,color=poiss_color,linestyle='--')
+    l.set_dashes([4,2])
     if thetatrue:
         pl.plot([thetatrue,thetatrue],[0.,10.],color=burst_color)
     
@@ -222,8 +224,8 @@ def make_plot(thetavals,kvals,post,post_theta,post_k,ktrue=None,thetatrue=None,s
     pl.tick_params(axis='y',labelleft=False)
     pl.xticks([1,3,5])
     pl.xlabel(r'$\mathcal{P}(\log k|N,t)$')
-    pl.ylim(10.**kvals.min(),10.**kvals.max())
     pl.xlim(0.,1.1*post_k.max())
+    pl.ylim(10.**-0.8,10.**-0.2)
     if ktrue:
         pl.plot([0.,10.],[ktrue,ktrue],color=burst_color)
     
@@ -268,8 +270,11 @@ if __name__ == '__main__':
         
     plot_obs(start,end,times,nFRB)
     thetavals = np.linspace(-1.0,2.0,100)
-    kvals = np.linspace(-0.8,-0.2,100)
+    kvals = np.linspace(-0.8,+0.4,200)
     post, post_theta, post_k = get_posterior(thetavals,kvals,intlengths,intminlengths)
+#    post = np.load('post.npy')
+#    post_theta = np.load('post_theta.npy')
+#    post_k = np.load('post_k.npy')
     np.save('post.npy',post)
     np.save('post_theta.npy',post_theta)
     np.save('post_k.npy',post_k)
