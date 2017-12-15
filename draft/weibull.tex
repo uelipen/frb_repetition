@@ -4,26 +4,31 @@
 \usepackage[T1]{fontenc}
 \usepackage{ae,aecompl}
 
-\usepackage{amsmath}
+\usepackage{amsmath,color}
 \usepackage{graphicx}
 \usepackage{amssymb}
+
 
 
 %\newcommand{\new}[1]{\textcolor{cyan}{#1}}
 \newcommand{\new}[1]{#1}
 \newcommand{\hide}[1]{}
+\newcommand{\tcb}{\textcolor{blue}}
+\newcommand{\tcr}{\textcolor{red}}
 \renewcommand{\d}{\delta}
 
 
 \title{On the non-Poissonian repetition pattern of FRB121102}
 
 \author[N. Oppermann et al.]{Niels Oppermann,$^{1,2}$\thanks{E-mail: niels@cita.utoronto.ca}
-Ue-Li Pen$^{1,2,3,4}$
+Hao-Ran Yu,$^{1,3}$
+Ue-Li Pen$^{1,2,3,4,5}$
 \\
 $^{1}$Canadian Institute for Theoretical Astrophysics, University of Toronto, 60 St.\ George Street, Toronto ON, M5S 3H8, Canada\\
 $^{2}$Dunlap Institute for Astronomy and Astrophysics, University of Toronto, 50 St.\ George Street, Toronto ON, M5S 3H4, Canada\\
-$^{3}$Canadian Institute for Advanced Research, 180 Dundas St.\ West, Toronto ON, M5G 1Z8, Canada\\
-$^{4}$Perimeter Institute for Theoretical Physics, 31 Caroline St.\ North, Waterloo ON, N2L 2Y5, Canada
+$^{3}$Tsung-Dao Lee Institute, Shanghai Jiao Tong University, Shanghai, 200240, China\\
+$^{4}$Canadian Institute for Advanced Research, 180 Dundas St.\ West, Toronto ON, M5G 1Z8, Canada\\
+$^{5}$Perimeter Institute for Theoretical Physics, 31 Caroline St.\ North, Waterloo ON, N2L 2Y5, Canada
 }
 
 \date{Accepted XXX. Received YYY; in orignal form ZZZ}
@@ -106,7 +111,7 @@ Consider first a single observation of a finite duration $\Delta$. The informati
 	\caption{\label{fig:singleinterval}Illustration of the variables used to describe a single finite-duration observation (\emph{green line}). We assume that $N$ bursts (\emph{orange dots}) happen during the observation.}
 \end{figure}
 
-We calculate the likelihood for $N$ and $t_1,\dots,t_N$ by marginalizing over the time of the next burst, $t_{N+1}$,
+We calculate the likelihood for $N$ and $t_1,\dots,t_N$ by marginalizing over the time of the next burst, $t_{N+1}$,\footnote{We use $\mathcal{P}$ to denote probability densities and $P$ to denote probabilities.}
 \begin{align}
 	\label{eq:likelihood_firstsplit}
 	&\mathcal{P}(N,t_1,\dots,t_N|k,r)\nonumber\\
@@ -116,7 +121,7 @@ The first ingredient is the probability that $N$ bursts are observed, given the 
 \begin{align}
 	P(N|t_1,\dots,t_N,t_{N+1}) &= \theta(\Delta - t_N) \, \theta(t_{N+1} - \Delta),
 \end{align}
-where $\theta(\cdot)$ is the Heaviside step function, which is 1 for a positive argument and 0 otherwise.\footnote{We use $\mathcal{P}$ to denote probability densities and $P$ to denote probabilities.}
+where $\theta(\cdot)$ is the Heaviside step function, which is 1 for a positive argument and 0 otherwise.
 
 The second ingredient, the probability for \new{the arrival times of the $N+1$ first bursts}, given the parameters of the Weibull distribution, can be split into a product of probabilities for the inter-burst intervals,
 \begin{align}
@@ -153,19 +158,20 @@ Thus, we can write the first factor in Eq.~\eqref{eq:likelihood_times} as
 \begin{align}
 	\mathcal{P}(t_1|k,r) &= \int_0^\infty \mathrm{d}\d_{01} \, \mathcal{P}(t_1|\d_{01}) \, \mathcal{P}(\d_{01}|k,r,\textnormal{obs.\ start during }\d_{01})\nonumber\\
 	&= \frac{1}{\bar{\d}} \, \int_{t_1}^\infty \mathrm{d}\d_{01} \, \mathcal{W}(\d_{01}|k,r)\nonumber\\
-	&= \frac{1}{\bar{\d}} \, \mathrm{CDF}(t_1|k,r),
+	&= \frac{1}{\bar{\d}} \, \mathrm{CCDF}(t_1|k,r),
 \end{align}
-where we have defined the cumulative distribution function\footnote{\new{Note that, depending on convention, the cumulative distribution function may also be $1 - \mathrm{CDF}$.}}
+where we have defined the complementary cumulative distribution function
+%\footnote{\new{Note that, depending on convention, the cumulative distribution function may also be $1 - \mathrm{CDF}$.}}
 \begin{align}
 	\label{eq:cdf_weibull}
-	\mathrm{CDF}(\d|k,r) &= \mathrm{e}^{-\left[\d\,r\,\Gamma(1 + 1/k)\right]^k}
+	\mathrm{CCDF}(\d|k,r) &= \mathrm{e}^{-\left[\d\,r\,\Gamma(1 + 1/k)\right]^k}
 \end{align}
 in the last line.
 
 Plugging everything into Eq.~\eqref{eq:likelihood_firstsplit}, we are left with a product of $N - 1$ Weibull distributions, a cumulative Weibull distribution due to the time difference $\Delta - t_N$ at the end of the observation, and another cumulative Weibull distribution due to the time elapsed at the beginning of the observation before the first burst. As argued above, this last factor has an additional factor $1/\bar{\d}$. In total, we obtain
 \begin{align}
 	\label{eq:likelihood_weibull}
-	\mathcal{P}(N,t_1,\dots,t_N|k,r) =& ~\frac{1}{\bar{\d}} \, \mathrm{CDF}(t_1|k,r) \, \mathrm{CDF}(\Delta - t_N|k,r)\nonumber\\
+	\mathcal{P}(N,t_1,\dots,t_N|k,r) =& ~\frac{1}{\bar{\d}} \, \mathrm{CCDF}(t_1|k,r) \, \mathrm{CCDF}(\Delta - t_N|k,r)\nonumber\\
 	&\prod_{i=1}^{N-1} \mathcal{W}(t_{i+1} - t_i|k,r).
 \end{align}
 This expression is valid for any distribution of intervals. To obtain the specific expression for the case of the Weibull distribution, we plug in Eqs.~\eqref{eq:weibull}, \eqref{eq:dbar_weibull}, and \eqref{eq:cdf_weibull}.
@@ -173,13 +179,13 @@ This expression is valid for any distribution of intervals. To obtain the specif
 Strictly speaking, Eq.~\eqref{eq:likelihood_weibull} is only valid for $N > 1$. For $N = 1$ it simplifies trivially to
 \begin{align}
 	\label{eq:likelihood_N1}
-	\mathcal{P}(N=1,t_1|k,r) =& ~\frac{1}{\bar{\d}} \, \mathrm{CDF}(t_1|k,r) \, \mathrm{CDF}(\Delta - t_1|k,r).
+	\mathcal{P}(N=1,t_1|k,r) =& ~\frac{1}{\bar{\d}} \, \mathrm{CCDF}(t_1|k,r) \, \mathrm{CCDF}(\Delta - t_1|k,r).
 \end{align}
 
 For the case $N=0$, i.e., an observation without detected bursts, we follow a similar argument as above and marginalize over the time of the first burst after the start of the observations,
 \begin{align}
 	P(N=0|k,r) &= \int_\Delta^\infty \mathrm{d}t_1 \, \mathcal{P}(t_1|k,r)\nonumber\\
-	&= \frac{1}{\bar{\d}} \, \int_\Delta^\infty \mathrm{d}t_1 \, \mathrm{CDF}(t_1|k,r).
+	&= \frac{1}{\bar{\d}} \, \int_\Delta^\infty \mathrm{d}t_1 \, \mathrm{CCDF}(t_1|k,r).
 \end{align}
 Plugging in Eq.~\eqref{eq:cdf_weibull} yields the result for the Weibull distribution,
 \begin{align}
@@ -224,6 +230,12 @@ We make use of the data shown in Fig.~\ref{fig:intervals} and insert them into E
 
 From Fig.~\ref{fig:result} we immediately see that the Poissonian case of $k=1$ is strongly disfavored by the data. The posterior mean value for the shape parameter is \new{$\left<k\right>_{(k|N,t)} = 0.34^{+0.06}_{-0.05}$} and the posterior mean for the rate is \new{$\left<r\right>_{(r|N,t)} = 5.7^{+3.0}_{-2.0}/\mathrm{day}$ The uncertainties given here are the 68\,\% confidence intervals. The estimated rate is similar to the Poissonian rate, but the uncertainty interval is about twice as wide.} Since the value of $k$ is less than 1, there is indeed an excess of short inter-burst intervals. A consequence of this is that, if a burst is observed, the probability that another burst happens shortly after is increased.
 
+\tcb{
+Although we have not exhausted all possible distributions to model the data, it can be quantitatively shown that the Weibull distribution describes the data much better than Poissonian case. We examine this by Kolmogorov-Smirnov (KS) test on the distribution of burst intervals. For Poissonian case, the distribution of intervals disagrees with the exponential best fit at level $\alpha=1.03\times 10^{-6}$. If we assume a Weibull distribution, we have to consider 3 kinds of intervals ($N=2$, $N=1$ and $N=0$ as discussed in \S \ref{sec:formalism}) separately. For each of these, the distribution depends on the Weibull parameters $k,r$, and additionally the distribution of observation durations (see Appendix~\ref{app:interval} for more details). These three distributions disagree with the Weibull model at levels $\alpha=1.46, 1.18\times 10^{-4}, 0.37$ respectively. It shows that Weibull model performs much better than Poissonian. Note that, although much better than Poissonian in $\alpha$ the Weibull distribution still does not describe the data well, especially in the distribution of ``$N=1$''-kind intervals. The reason is obvious -- from Fig.~\ref{fig:intervals} we see many clustered bursts to accumulate in short observations, and even very likely to be in the beginning or ending of one observation.
+}
+
+
+
 To illustrate the effect this has on the number of bursts during an observation, we consider the case of a Weibull distribution with parameters fixed to the posterior-mean values. We numerically calculate the probability to see $N$ bursts during an observation that lasts ten times the mean burst separation, i.e., $\Delta = 10/r$. \new{For the posterior-mean repetition rate of FRB121102, this is a 42-hour observation. The result} is shown in Fig.~\ref{fig:n_singleint}. For comparison, we also plot the Poissonian probability. While the mean number of bursts is the same for both cases, the Weibull case has a much higher probability of yielding no bursts at all. The excess of short intervals makes it likely that either no burst is seen (if the observation happens to fall within a long inter-burst interval) or several bursts are seen, since the presence of one burst makes the presence of other bursts in the temporal vicinity more likely.
 
 \begin{figure}
@@ -261,7 +273,7 @@ We can calculate a density of bursts by dividing by the bin width, $n(t) = N(t)/
 
 \begin{figure}
 	\includegraphics[width=1.0\columnwidth]{powspec_weibull.pdf}
-	\caption{\label{fig:powspec}\new{Power spectrum of the burst number density for the Weibull distribution with parameters fixed to the posterior-mean values (\emph{green line}). The Poissonian expectation has been subtracted to show the excess power due to clustering. The horizontal \emph{orange dashed} line shows the Poissonian power spectrum increased by a factor $(\Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 1)\sim 17.6$. The vertical \emph{orange dashed} line marks the mean rate $\left<r\right>_{(r|N,t)}$.}}
+	\caption{\label{fig:powspec}\new{Power spectrum of the burst number density for the Weibull distribution with parameters fixed to the posterior-mean values (\emph{green line}). The Poissonian expectation ($r=5.7$) has been subtracted to show the excess power due to clustering. The horizontal \emph{orange dashed} line shows the Poissonian power spectrum increased by a factor $(\Gamma(1 + 2/k)/\Gamma(1 + 1/k)^2 - 1)\sim 17.6$. The vertical \emph{orange dashed} line marks the mean rate $\left<r\right>_{(r|N,t)}$.}}
 \end{figure}
 
 \new{
@@ -349,6 +361,39 @@ We check the accuracy of our model by computing the fraction of simulations for 
 \end{tabular}
 \end{center}
 \end{table}
+
+
+\tcb{
+\section{Probability density functions of intervals}
+}
+\label{app:interval}
+We consider a number of events (e.g. FRB bursts here) detected by an independent series of observations with finite times. The duration of each observation $T_{\rm obs}$ obeys $f_{\rm obs}$. In the case of $T_{\rm obs}\rightarrow\infty$, we can observe the intrinsic statistics of intervals between two events -- we denote it $f^\infty_2(\Delta t)$. Realistically, when $T_{\rm obs}$ is finite, we observe 3 kinds of intervals -- combinations between observation boundaries and events. We define $t_0$ as time of interval between two boundaries, $t_1$ as time of interval between one event and one boundary, and $t_2$ as time of interval between two events. We study the distribution of $\{t_0,t_1,t_2\}$  given $f^\infty_2$ and $f_{\rm obs}$.
+
+One can easily proof that the PDF of $t_0$ can be written as $f_0\propto P_0(t) f_{\rm obs}(t)$, where $P_0$ is the probability of no detections within $T_i$. For discrete cases, $f_{\rm obs}=N^{-1}\sum_{i=1}^{N} \delta(t-T_i)$, where $\delta(t)$ is the Dirac delta function. It is straightforward to integrate and get the CCDF of $t_0$,
+\begin{equation}\label{eq.1-F0}
+	1-F_0(t)=\frac{\sum_{i=m}^{N}P_0(T_i)}{\sum_{i=1}^{N}P_0(T_i)},
+\end{equation}
+where $m$ is the smallest index s.t. $T_m>t$.
+
+To produce $t_1=t$, we need 
+condition(1): Given an event, the probability that the next/previous event happens at least $t$ after/before it\footnote{condition(1)$\,\sim\,$condition(1$'$): Given a boundary, the next/previous event happens $t$ away from it.} $P_1(t)=1-F^\infty_2$ \footnote{In Eq.(\ref{eq.1-F0}), $P_0(t)=1-F^\infty_1(t)$.}, and condition(2): the probability that $T_i>t$, which is $1-F_{\rm obs}(t)$. Thus,
+\begin{equation}
+	f_1\propto f^\infty_1(t)\int_t^\infty f_{\rm obs}(t')dt' = f^\infty_1(t) (1-F_{\rm obs}(t)),
+\end{equation}
+
+To produce $t_2=t$, we need the probability of $\Delta t=t$ selected from $f^\infty_2(\Delta t)$, the probability of $T_i>t$, and the probability that $t$ can be put in $T_i$, which is $T_i-t$. So
+\begin{equation}
+	f_2\propto f^\infty_2(t)\int_t^\infty f_{\rm obs}(t')(t'-t)dt'=f^\infty_2(t)\sum_{i=m}^{N}(T_i-t),
+\end{equation}
+where again $m$ is the smallest index s.t. $T_m>t$.
+
+Recall that for Weibull distribution,
+\begin{align}
+	& f^\infty_2=kt^{-1}[r\,\Gamma(1+1/k)\,t]^k \exp\left[-(r\,\Gamma(1+1/k)\,t)^k\right],\\
+	& f^\infty_1 = P_1 = 1-F^\infty_2 = \exp\left[-(r\,\Gamma(1+1/k)\,t)^k\right],\\
+	& P_0= \frac{\Gamma_\mathrm{i}{\left(1/k, \left(r\,\Gamma(1+1/k)\,t\right)^k\right)}}{k\,\Gamma{\left(1+1/k\right)}}.
+\end{align}
+
 
 
 \section{Power spectrum of a Weibull distribution}

@@ -10,5 +10,6 @@ connect lx lc
 ticksize -1 0 -1 0
 box
 ctype green
-relocate 0 -0.4
-draw -3 $(3*(1-0.34)-0.4)
+define OFFSET -0.1
+relocate 0 $OFFSET
+draw -3 $(3*(1-0.34)+$OFFSET)
