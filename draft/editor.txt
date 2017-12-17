@@ -1,0 +1,95 @@
+
+Dear Editor,
+
+we apologize for the delayed reply, partly due to the first author
+leaving the field.  We have brought a new author, Dr Haoran Yu, on
+board to finish the revisions.
+
+We found the referee’s comments and suggestions helpful, and according
+to the major comments, we added an additional KS test on how well
+Poisson and Weibull distributions fit the FRB data. They are described
+in an additional paragraph in section 5.1 and the new Appendix B.
+The Weibull improves the absolute KS test, but is still not a perfect fit.
+
+Below is the reply to the referee. 
+
+Sincerely,
+
+Authors
+
+
+
+
+MN-17-1609-MJ
+
+This paper presents a straightforward analytical estimate of the
+clustering behaviour of fast radio bursts by fitting the observed
+burst times to a Weibull distribution, which reduces to a Poisson
+distribution (no clustering) for a specific choice of the Weibull
+shape parameter k.
+
+Especially as this analysis can help guide future observations by
+helping optimise observing strategy this is a useful paper.  It is
+largely acceptable for publication as-is.  However, a few minor
+additions should make it stronger.
+
+First, the analysis presented in this paper is purely parametrised by
+the Weibull distribution.  There is no sense of how well a Poisson
+distribution alone fits (or does not fit) the data.  The authors
+should perform some analysis of the public FRB data comparing the
+measured event rates (or intervals) to Poisson values.  This would
+help highlight just how poor the Poisson model is.  Some sense of this
+can be gleaned from Figure 4, but that only compares two models, not
+one model and data.
+
+
+Second, there is no goodness-of-fit for the Weibull distribution.
+Just showing that the parameter k is not consistent with 1 is not 
+sufficient evidence that the data are well-fit by this model.  The
+authors should add some discussion of how well (or not) the Weibull
+model fits (Bayes factor, chi^2, or similar).
+
+> Answer: We added a paragraph in 5.1 doing KS tests for Poisson
+> (exponential) and Weibull distributions. In KS test, the data do
+> not agree Poissonian model at level alpha~10^-6 however Weibull
+> model fits the data relatively better. We did 3 KS tests on 3 kinds
+> of intervals assuming a Weibull distribution, and the alpha values
+> are 1.46, ~10^-4, and 0.37. We discussed in the paper that FRB
+> detections are by chance located in short observations, and especially
+> near the start/end of observations causes the discrepancy. However
+> it is still much better than using a Poissonian model.
+ 
+> We also added Appendix B describing more details of the distribution 
+> of three kinds of intervals, for doing the KS tests.
+
+
+
+Smaller items:
+
+Footnote 1 should be introduced earlier in Section 4 (near Equation 5)
+since that is the first use of the different P symbols.
+Answer: modified. Thanks.
+
+Note that in footnote 2, there is a typo.  The text should read
+"... the cumulative distribution function may also be 1 - CDF.”
+> Answer: now we used CCDF as “complimentary cumulative distribution function”, 
+> and deleted this footnote.
+
+In Figures 3 and 4 the blue and green curves are hard to distinguish.
+The authors should make one of the colors more distinct and/or change
+one of the line styles.
+
+> Answer: we will defer to the editor.  The paper is meant to be
+> accessible in a black and white printed version, and we have
+> added a minor change of 'straight' to the orange line such that 
+> no color information is essential for the description of the figure.
+
+
+Figure 6: the numerical value of the factor by which the Poisson
+distribution has been increased (and which has been subtracted from
+the plotted distribution) should be given.
+
+> Answer: the value is the posterior of the rate r=5.7. Added in the caption of Fig.6.
+
+
+
